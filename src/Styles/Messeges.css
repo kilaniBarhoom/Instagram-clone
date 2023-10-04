@@ -1,0 +1,147 @@
+.messeges-page-container {
+  margin-left: 70px;
+  color: #fff;
+  /* border: solid #fff; */
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+}
+
+.messeges-list {
+  width: 400px;
+  height: 100%;
+  border-right: 1px solid #353535;
+  /* border: solid; */
+  display: flex;
+  flex-direction: column;
+  /* padding: 30px; */
+  flex: 1;
+}
+
+.messeges-header {
+  width: 100%;
+  /* padding: 5px; */
+  /* border: solid; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  padding-bottom: 10px;
+}
+
+.messeges-header .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.messeges-header .top span {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  word-wrap: break-word;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.messeges-header .bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messeges-header .bottom span {
+  font-weight: 600;
+}
+
+.messeges-header .bottom .requests {
+  color: #a8a8a8;
+  font-size: 0.8rem;
+}
+
+.messeges-followers {
+  /* border: solid; */
+  /* padding: 10px 30px; */
+  overflow-y: scroll;
+  flex: 1;
+}
+
+.messege-container {
+  display: flex;
+  align-items: center;
+  /* border: solid; */
+  width: 100%;
+  padding: 7px 30px;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.messege-container:hover {
+  background-color: #45454551;
+}
+
+.messege-container .right .username {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.messege-container .messege-line #messege,
+.messege-container .messege-line #time-sent {
+  font-size: 0.8rem;
+  color: #a8a8a8;
+}
+
+.chat-messege-displayer {
+  /* border: solid 2px; */
+  width: 100%;
+  height: 100%;
+  flex: 2.2;
+}
+
+.no-chosen-messege {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-chosen-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.no-chosen-body h3 {
+  margin: 0;
+  font-weight: 500;
+}
+
+.no-chosen-body p {
+  font-size: 0.8rem;
+  color: #a8a8a8;
+}
+
+.no-chosen-body .send-messege-btn {
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  background-color: #0095f6;
+  cursor: pointer;
+}
+
+.no-chosen-body .send-messege-btn:hover {
+  background-color: #0094f6d9;
+}

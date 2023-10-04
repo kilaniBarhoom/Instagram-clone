@@ -1,0 +1,45 @@
+.home-sugg-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* width: fit-content; */
+  padding: 7px 0;
+  gap: 10px;
+  cursor: pointer;
+  /* position: relative; */
+}
+
+.home-sugg-container .left {
+  display: flex;
+  gap: 10px;
+  text-align: left;
+  width: fit-content;
+  align-items: center;
+  width: 100%;
+}
+
+.home-sugg-container .name-followedby .username {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.home-sugg-container .content-line .content {
+  font-size: 0.8rem;
+  color: #a8a8a8;
+  margin: 0;
+  /* width: 100%; */
+  width: fit-content;
+  padding: 0;
+}
+
+.home-sugg-container .right {
+  /* width: 20px; */
+  /* flex-grow: 1; */
+}
+
+.home-sugg-container .right span {
+  color: rgb(0, 162, 255);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
