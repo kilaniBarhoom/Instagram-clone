@@ -9,7 +9,8 @@ export default function Messege({ src }) {
           <span>Kilani</span>
         </div>
         <div className="messege-line">
-          <span id="messege">hi kilani</span> . <span id="time-sent">12h</span>
+          <span id="messege">hi kilani . </span>
+          <span id="time-sent"> 12h</span>
         </div>
       </div>
     </div>

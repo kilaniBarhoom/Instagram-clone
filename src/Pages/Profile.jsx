@@ -3,6 +3,9 @@ import "../Styles/Profile.css";
 import profilepic from "../assets/profilepic.jpg";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Highlight from "../Components/Highlight";
+import GridOnIcon from "@mui/icons-material/GridOn";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 
 export default function Profile() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -122,9 +125,32 @@ export default function Profile() {
           <div className="post-type-navigator">
             <div className="posts-categ">
               <div className="active"></div>
-              <span>Posts</span>
-              <span>Saved</span>
-              <span>Taged</span>
+              {screenWidth <= 735 ? (
+                <>
+                  <span>
+                    <GridOnIcon />
+                  </span>
+                  <span>
+                    <BookmarkBorderOutlinedIcon />
+                  </span>
+                  <span>
+                    <VideoLibraryOutlinedIcon />
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span>
+                    Posts <GridOnIcon />
+                  </span>
+                  <span>
+                    Saved
+                    <BookmarkBorderOutlinedIcon />
+                  </span>
+                  <span>
+                    Taged <VideoLibraryOutlinedIcon />
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>

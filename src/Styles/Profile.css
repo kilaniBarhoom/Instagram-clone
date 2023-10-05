@@ -177,6 +177,9 @@
 
 .posts-categ span {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .posts-categ .active {
@@ -189,7 +192,7 @@
 
 @media screen and (width <= 735px) {
   .profile-container {
-    margin-top: 6vh;
+    /* margin-top: 0vh; */
     margin-left: 0;
   }
   .main-content {
@@ -202,7 +205,7 @@
   }
 
   .profile-photo img {
-    width: 120px;
+    width: 90px;
   }
 
   .profile-actions {
@@ -212,6 +215,10 @@
     align-items: baseline;
   }
 
+  .actions button {
+    font-size: 0.7rem;
+  }
+
   .highlights-container {
     width: 100%;
     flex-wrap: wrap;
@@ -219,7 +226,8 @@
   }
 
   .profile-status-container {
-    border: solid 1px #6666669d;
+    border-top: solid 1px #6666669d;
+    border-bottom: solid 1px #6666669d;
     justify-content: space-around;
     margin: 0;
     padding: 20px;

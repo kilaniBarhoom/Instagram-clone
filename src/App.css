@@ -40,6 +40,11 @@ body {
   .profile-img {
     width: 40px !important;
     height: 30px !important;
+    padding: 0;
+  }
+
+  .profile-img img {
+    height: 100%;
   }
 }
 
@@ -121,6 +126,7 @@ body {
 @media screen and (width <= 1000px) {
   .main-page-container {
     margin: 0px !important;
+    margin-left: 70px !important;
     width: 100% !important;
     display: block !important;
   }
@@ -164,6 +170,10 @@ body {
 }
 
 @media screen and (width <= 735px) {
+  .main-page-container {
+    margin: 0 !important;
+  }
+
   .left-main-page-side {
     margin-bottom: 6vh;
   }
@@ -229,7 +239,7 @@ body {
     flex-direction: row;
     width: 100%;
     /* border: solid red; */
-    padding: 0;
+    padding: 0 20px;
     justify-content: space-between;
   }
 
@@ -265,8 +275,8 @@ body {
   }
 
   .profile-img {
-    width: 35px !important;
-    height: 35px !important;
+    width: 33px !important;
+    height: 33px !important;
   }
 }
 

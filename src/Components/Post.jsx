@@ -10,7 +10,7 @@ export default function Post({ title, profilepic, postpic, caption }) {
     <div className="post-container">
       <div className="post-header">
         <img className="profile-img" src={profilepic} alt="" />
-        <span className="profile-name">kilani</span>
+        <span className="profile-name">kilani.jsx</span>
         <MoreHorizIcon style={{ marginLeft: "auto", cursor: "pointer" }} />
       </div>
       <h4>{title}</h4>

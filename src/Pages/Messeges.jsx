@@ -7,14 +7,21 @@ import messegeImg from "../assets/messegeImg.jpg";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 export default function Messeges() {
   const [messeges, setMesseges] = useState("");
+  const nav = useNavigate();
+
   return (
     <div className="messeges-page-container">
       <div className="messeges-list">
         <div className="messeges-header">
           <div className="top">
+            <KeyboardBackspaceIcon
+              className="back-btn"
+              onClick={() => nav("/")}
+            />
             <span>
               <span>kilani.jsx</span>
               <KeyboardArrowDownOutlinedIcon />

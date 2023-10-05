@@ -50,6 +50,13 @@
   overflow-x: hidden;
 }
 
+.messeges-header .back-btn {
+  cursor: pointer;
+  font-size: 2.5rem;
+  font-weight: 400;
+  display: none;
+}
+
 .messeges-header .bottom {
   width: 100%;
   display: flex;
@@ -144,4 +151,25 @@
 
 .no-chosen-body .send-messege-btn:hover {
   background-color: #0094f6d9;
+}
+
+@media screen and (width <= 900px) {
+  .messeges-page-container {
+    margin-left: 0;
+  }
+  .chat-messege-displayer {
+    display: none;
+  }
+
+  .messeges-page-container .messeges-header {
+    padding: 10px;
+  }
+
+  .messege-container {
+    padding: 7px 10px;
+  }
+
+  .messeges-header .back-btn {
+    display: block;
+  }
 }

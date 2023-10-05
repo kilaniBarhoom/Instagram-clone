@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Images from "./Contexts/Images";
 import PostImages from "./Contexts/PostImages";
+import profilePic from "./assets/profilepic.jpg";
 
 import { useForm } from "react-hook-form";
 
@@ -51,12 +52,10 @@ export default function App() {
         <form
           onSubmit={handleSubmit((data) => {
             const { title, caption, postpic } = data;
-            const profilepic =
-              Images[Math.floor(Math.random() * Images.length)];
             const newPost = {
               id: 5,
               title: title,
-              profilepic: profilepic,
+              profilepic: profilePic,
               postpic: postpic,
               caption: caption,
             };
