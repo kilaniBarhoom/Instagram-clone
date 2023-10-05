@@ -109,13 +109,13 @@ export default function Profile() {
         {screenWidth <= 735 ? (
           <div className="profile-status-container">
             <div>
-              0 <span>Posts</span>
+              0 <span> Posts</span>
             </div>
             <div>
-              322<span>followers</span>
+              322<span> followers</span>
             </div>
             <div>
-              266<span>following</span>
+              266<span> following</span>
             </div>
           </div>
         ) : (
