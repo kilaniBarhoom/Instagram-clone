@@ -10,6 +10,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Avatar, Box } from "@mui/material";
 
 // ROUTER NAVIGATE
 
@@ -18,8 +19,9 @@ import { useEffect, useState } from "react";
 import Images from "../Contexts/Images";
 import profilepic from "../assets/profilepic.jpg";
 import NavIcons from "./NavIcons";
+import CreatePostModal from "./CreatePostModal";
 
-export default function SideMenu({ setOpenCreate }) {
+export default function SideMenu({ user, setOpenCreate }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const location = useLocation();
   const CurrentPath = location.pathname;
@@ -42,7 +44,8 @@ export default function SideMenu({ setOpenCreate }) {
     <div
       className={`sidenav-container ${
         screenWidth <= 1263 || CurrentPath == "/messeges" ? "close" : ""
-      } ${screenWidth <= 735 ? "mobile" : ""} `}
+      } ${screenWidth <= 735 ? "mobile" : ""}
+      ${CurrentPath == "/signup" || CurrentPath == "/" ? "none" : ""} `}
     >
       <h1 className="sidenav-header" onClick={() => nav("/")}>
         {screenWidth <= 1263 || CurrentPath == "/messeges" ? (
@@ -58,12 +61,7 @@ export default function SideMenu({ setOpenCreate }) {
         <NavIcons name="Reels" icon={<SlideshowIcon />} />
         <NavIcons name="Messeges" icon={<ChatIcon />} navigate="/messeges" />
         <NavIcons name="Notifications" icon={<FavoriteBorderIcon />} />
-        <NavIcons
-          name="Create"
-          icon={<AddCircleOutlineIcon />}
-          create={true}
-          setOpenCreate={setOpenCreate}
-        />
+        <NavIcons name="Create" icon={<AddCircleOutlineIcon />} user={user} />
         <NavIcons
           name="Profile"
           icon={
@@ -76,14 +74,14 @@ export default function SideMenu({ setOpenCreate }) {
                 border: "none",
               }}
             >
-              <img
-                src={profilepic}
-                style={{ width: "100%", borderRadius: "50%" }}
+              <Avatar
+                src={user ? user.avatar : ""}
+                sx={{ width: "100%", height: "100%", borderRadius: "50%" }}
                 alt=""
               />
             </div>
           }
-          navigate="/kilani.jsx"
+          profile={true}
         />
         <NavIcons name="More" icon={<MenuIcon />} />
       </ul>

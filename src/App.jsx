@@ -1,6 +1,6 @@
 import SideMenu from "./Components/SideMenu";
 import Home from "./Pages/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import Explore from "./Pages/Explore";
 import Messeges from "./Pages/Messeges";
@@ -13,109 +13,73 @@ import PostImages from "./Contexts/PostImages";
 import profilePic from "./assets/profilepic.jpg";
 
 import { useForm } from "react-hook-form";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import ProtectedHome from "./Routes/ProtectedHome";
+import ProtectedAuth from "./Routes/ProtectedAuth";
+import { Toaster } from "react-hot-toast";
+import axios from "axios";
+import { BaseURL, token, userId } from "./Contexts/Vars";
 
 export default function App() {
   const [openCreate, setOpenCreate] = useState(false);
+  const [user, setUser] = useState([]);
 
   const { register, handleSubmit } = useForm();
 
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "Anything",
-      profilepic: Images[Math.floor(Math.random() * Images.length)],
-      postpic: PostImages[Math.floor(Math.random() * PostImages.length)],
-      caption: "feeling happy",
-    },
-    {
-      id: 2,
-      title: "Anything",
-      profilepic: Images[Math.floor(Math.random() * Images.length)],
-      postpic: PostImages[Math.floor(Math.random() * PostImages.length)],
-      caption: "feeling happy",
-    },
-    {
-      id: 3,
-      title: "Anything",
-      profilepic: Images[Math.floor(Math.random() * Images.length)],
-      postpic: PostImages[Math.floor(Math.random() * PostImages.length)],
-      caption: "feeling happy",
-    },
-  ]);
+  const location = useLocation();
+  const path = location.pathname;
 
-  // useEffect(() => {
-  // }, [openCreate]);
+  useEffect(() => {
+    axios
+      .get(`${BaseURL}/users`)
+      .then((res) => {
+        setUser(res.data.users.find((user) => user.id == userId));
+        // console.log(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="app-container">
-      {openCreate ? (
-        <form
-          onSubmit={handleSubmit((data) => {
-            const { title, caption, postpic } = data;
-            const newPost = {
-              id: 5,
-              title: title,
-              profilepic: profilePic,
-              postpic: postpic,
-              caption: caption,
-            };
-            setPosts([newPost, ...posts]);
-            setOpenCreate(false);
-          })}
-          className="create-container"
-        >
-          <div className="create-content">
-            <h3>Create A New Post</h3>
-            <CloseIcon
-              className="close-btn"
-              onClick={() => setOpenCreate(false)}
-            />
-            <div className="inputs">
-              <div className="inp-container">
-                <input
-                  required
-                  autoComplete="off"
-                  type="text"
-                  id="post-title"
-                  {...register("title")}
-                />
-                <label htmlFor="post-title">Title *</label>
-              </div>
-              <div className="body-container inp-container">
-                <textarea
-                  autoComplete="off"
-                  id="post-body"
-                  {...register("caption")}
-                />
-                <label htmlFor="post-body">Body</label>
-              </div>
-              <div className="url-container inp-container">
-                <input
-                  required
-                  autoComplete="off"
-                  type="text"
-                  id="post-url"
-                  {...register("postpic")}
-                />
-                <label htmlFor="post-url">URL * </label>
-              </div>
-            </div>
-            <div className="submit-btn">
-              <button type="submit">Post</button>
-            </div>
-          </div>
-        </form>
+      <Toaster />
+
+      {path !== "/login" || path !== "/signup" ? (
+        <SideMenu user={user} setOpenCreate={setOpenCreate} />
       ) : (
         <></>
       )}
-
-      <SideMenu setOpenCreate={setOpenCreate} />
       <Routes>
-        <Route path="/" element={<Home posts={posts} />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedAuth>
+              <Login />
+            </ProtectedAuth>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <ProtectedAuth>
+              <Signup />
+            </ProtectedAuth>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedHome>
+              <Home />
+            </ProtectedHome>
+          }
+        />
         <Route path="/explore" element={<Explore />} />
         <Route path="/messeges" element={<Messeges />} />
         <Route path="/suggested" element={<Suggested />} />
-        <Route path="/kilani.jsx" element={<Profile />} />
+        <Route path=":userid" element={<Profile />} />
       </Routes>
     </div>
   );

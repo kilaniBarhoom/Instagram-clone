@@ -155,7 +155,7 @@
 
 @media screen and (width <= 900px) {
   .messeges-page-container {
-    margin-left: 0;
+    margin-left: 70px;
   }
   .chat-messege-displayer {
     display: none;
@@ -171,5 +171,10 @@
 
   .messeges-header .back-btn {
     display: block;
+  }
+}
+@media screen and (width <= 735px) {
+  .messeges-page-container {
+    margin-left: 0px;
   }
 }

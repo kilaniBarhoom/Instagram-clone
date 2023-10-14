@@ -1,0 +1,192 @@
+.logup-container {
+  color: #fff;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  gap: 15ch;
+  align-items: center;
+  /* padding: 10ch; */
+}
+
+.screens-container {
+  position: relative;
+}
+
+.screens-container img {
+  height: 600px;
+}
+
+.screens-container img:first-child {
+  position: absolute;
+  left: 35%;
+  top: 3%;
+}
+
+.data-container {
+  /* height: 80%; */
+  width: 28%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  /* border: solid; */
+  text-align: center;
+}
+
+.main-box {
+  border-radius: 8px;
+  background-color: #121111;
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 40px;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+header + p {
+  width: 70%;
+  margin: 0 auto;
+  font-size: 0.8rem;
+  color: #ffffffc3;
+}
+
+header img {
+  width: 60%;
+  mix-blend-mode: lighten;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+form .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form .inputs input {
+  padding: 15px 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+form .inputs input::placeholder {
+  color: #00000099;
+}
+
+form button {
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff;
+  background-color: #047bcb;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+form button:disabled {
+  background-color: #4aaff3;
+}
+
+form + p {
+  margin: 0 auto;
+  font-size: 0.8rem;
+  color: #ffffffc3;
+}
+
+.OR {
+  position: relative;
+}
+
+.OR span {
+  position: absolute;
+  z-index: 1;
+  background-color: #121111;
+  padding-inline: 10px;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.OR hr {
+  background-color: #ffffff27;
+  height: 1px;
+  border: none;
+}
+
+.facebool-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 3px;
+  background-color: #045d98;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.forgot-pass span {
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.forgot-pass span:hover {
+  text-decoration: underline;
+}
+
+.second-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 8px;
+  background-color: #121111;
+  flex: 1;
+  padding: 15px 10px;
+}
+
+.second-box .signup-change-btn {
+  color: #36a7f2;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+@media screen and (width <= 1200px) {
+  .screens-container {
+    display: none;
+  }
+
+  .data-container {
+    min-width: 50%;
+    width: 400px;
+  }
+}
+
+@media screen and (width <= 500px) {
+  .data-container {
+    transform: scale(0.8);
+  }
+}
+
+@media screen and (height <= 650px) {
+  .logup-container {
+    min-height: 80%;
+  }
+}

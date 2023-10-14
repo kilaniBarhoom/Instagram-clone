@@ -74,7 +74,7 @@ body {
   padding: 0px 10px;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 10px;
   /* border: solid #fff; */
   position: relative;
   height: 100%;
@@ -83,6 +83,7 @@ body {
 .sidemenu-item {
   color: #ffffffc1;
   letter-spacing: 1px;
+
   display: flex;
   align-items: center;
   gap: 16px;
@@ -96,10 +97,21 @@ body {
   transition: all ease 0.1s;
 }
 
-.sidemenu-item span {
-  /* visibility: hidden; */
-  /* display: none; */
+#more-icon-name {
+  text-transform: capitalize;
+  padding: 0;
+  margin: 0;
 }
+
+#more-icon-name:hover {
+  background-color: transparent;
+}
+
+/* .sidemenu-item:last-child span {
+  border: dashed #fff;
+  margin: 0 !important;
+  padding: 0 !important;
+} */
 
 .sidenav-container.close .sidemenu-item span {
   display: none;
@@ -109,14 +121,6 @@ body {
   background-color: #6564644f;
 }
 
-@media screen and (height >= 620px) {
-  .sidemenu-item:last-child {
-    position: absolute;
-    bottom: 5px;
-    /* left: ; */
-    width: 92%;
-  }
-}
 @media screen and (width <= 1263px) {
   .right-main-page-side {
     display: none;
@@ -143,8 +147,8 @@ body {
   }
 
   .profile-img {
-    width: 65px !important;
-    height: 65px !important;
+    width: 45px !important;
+    height: 45px !important;
   }
 }
 
@@ -225,6 +229,7 @@ body {
 
 .profile-name {
   font-family: "Poppins", sans-serif;
+  cursor: pointer;
 }
 
 .sidenav-container.mobile {
@@ -248,6 +253,7 @@ body {
   }
 
   .list-items li:nth-child(2),
+  .list-items li:nth-child(4),
   .list-items li:nth-child(6) {
     display: none;
   }
@@ -258,9 +264,9 @@ body {
   .list-items li:nth-child(3) {
     order: 2;
   }
-  .list-items li:nth-child(4) {
-    order: 3;
-  }
+  /* .list-items li:nth-child(4) {
+  
+  } */
   .list-items li:nth-child(5) {
     order: 5;
   }
@@ -285,9 +291,10 @@ body {
   width: 70%;
   margin: 5vh auto;
   /* border: solid #fff; */
+  transition: all ease 0.3s;
 }
 
-.post-container {
+.post-container:not(:last-child) {
   color: #fff;
   border-bottom: #121212 3px solid;
   margin-bottom: 20px;
@@ -355,6 +362,10 @@ body {
   align-items: center;
   gap: 5px;
   margin: 0;
+}
+
+.post-container .post-actions span {
+  cursor: pointer;
 }
 
 .post-container .likes-container {
@@ -558,4 +569,8 @@ body {
 .inputs .inp-container input:focus,
 .inputs .inp-container textarea:focus {
   border-color: #fff;
+}
+
+.sidenav-container.none {
+  display: none;
 }
