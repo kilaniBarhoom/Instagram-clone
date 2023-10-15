@@ -4,11 +4,11 @@ import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import Post from "./Post";
 import axios from "axios";
-import { BaseURL, token } from "../Contexts/Vars";
+import { BaseURL, token, userId } from "../Contexts/Vars";
+import { Avatar, Box, Stack, Typography } from "@mui/material";
+import privateAccPhoto from "../assets/PrivateAccountPhoto.jpg";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,7 +43,7 @@ function a11yProps(index) {
   };
 }
 
-export default function ProfileTabs({ userId, setPostsCount }) {
+export default function ProfileTabs({ status, userid, setPostsCount }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -54,15 +54,10 @@ export default function ProfileTabs({ userId, setPostsCount }) {
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
-
   useEffect(() => {
     // Get My Posts
-
     axios
-      .get(`${BaseURL}/posts/${userId}`, {
+      .get(`${BaseURL}/posts/${userid}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,11 +65,16 @@ export default function ProfileTabs({ userId, setPostsCount }) {
       .then((res) => {
         setPosts(res.data.posts);
         setPostsCount(posts.length);
+        // console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
+
     // Get Posts That I Have Liked
+  }, [posts]);
+
+  useEffect(() => {
     axios
       .get(`${BaseURL}/posts`, {
         headers: {
@@ -82,23 +82,26 @@ export default function ProfileTabs({ userId, setPostsCount }) {
         },
       })
       .then((res) => {
-        setLikedPosts(
-          res.data.posts.filter((post) => post.likes.includes(userId))
-        );
+        setLikedPosts(res.data.posts);
+        setLikedPosts([
+          ...likedPosts.filter((post) => post.likes.includes(userid)),
+        ]);
       })
       .catch((err) => {
         console.log(err);
       });
+  }, []);
 
+  useEffect(() => {
     axios
       .get(`${BaseURL}/users`)
       .then((res) => {
-        setUser(res.data.users.find((user) => user.id == userId));
+        setUser(res.data.users.find((user) => user.id == userid));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [posts]);
+  }, [user]);
 
   return (
     <Box sx={{ bgcolor: "background.dark", width: "100%" }}>
@@ -118,21 +121,37 @@ export default function ProfileTabs({ userId, setPostsCount }) {
       <TabPanel value={value} index={0} dir={theme.direction}>
         <Box>
           <div className="posts-container">
-            {posts.map(
-              ({ id, image, likes, description, createdAt, comments }) => {
-                return (
-                  <Post
-                    key={id}
-                    id={id}
-                    image={image}
-                    user={user}
-                    likes={likes}
-                    description={description}
-                    createdAt={createdAt}
-                    comments={comments}
-                  />
-                );
-              }
+            {status == "public" || userid == userId ? (
+              posts.map(
+                ({ id, image, likes, description, createdAt, comments }) => {
+                  return (
+                    <Post
+                      key={id}
+                      id={id}
+                      image={image}
+                      user={user}
+                      likes={likes}
+                      description={description}
+                      createdAt={createdAt}
+                      comments={comments}
+                    />
+                  );
+                }
+              )
+            ) : (
+              <Stack alignItems="center" gap={1}>
+                <Avatar
+                  sx={{ width: 150, height: 150 }}
+                  src={privateAccPhoto}
+                />
+                <Typography variant="h4">This Account Is Private</Typography>
+                <Typography
+                  sx={{ letterSpacing: 1, wordSpacing: 2, fontWeight: 400 }}
+                  variant="h6"
+                >
+                  Follow this account to see their Photos An Videos
+                </Typography>
+              </Stack>
             )}
           </div>
         </Box>
@@ -140,21 +159,37 @@ export default function ProfileTabs({ userId, setPostsCount }) {
       <TabPanel value={value} index={1} dir={theme.direction}>
         <Box>
           <div className="posts-container">
-            {likedPosts.map(
-              ({ id, image, likes, description, createdAt, comments }) => {
-                return (
-                  <Post
-                    key={id}
-                    id={id}
-                    image={image}
-                    user={user}
-                    likes={likes}
-                    description={description}
-                    createdAt={createdAt}
-                    comments={comments}
-                  />
-                );
-              }
+            {status == "public" || userid == userId ? (
+              likedPosts.map(
+                ({ id, image, likes, description, createdAt, comments }) => {
+                  return (
+                    <Post
+                      key={id}
+                      id={id}
+                      image={image}
+                      user={user}
+                      likes={likes}
+                      description={description}
+                      createdAt={createdAt}
+                      comments={comments}
+                    />
+                  );
+                }
+              )
+            ) : (
+              <Stack alignItems="center" gap={1}>
+                <Avatar
+                  sx={{ width: 150, height: 150 }}
+                  src={privateAccPhoto}
+                />
+                <Typography variant="h4">This Account Is Private</Typography>
+                <Typography
+                  sx={{ letterSpacing: 1, wordSpacing: 2, fontWeight: 400 }}
+                  variant="h6"
+                >
+                  Follow this account to see their Liked Photos An Videos
+                </Typography>
+              </Stack>
             )}
           </div>
         </Box>

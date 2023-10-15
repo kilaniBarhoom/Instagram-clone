@@ -208,6 +208,7 @@ body {
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  text-align: center;
 }
 
 .profile-img {
@@ -230,6 +231,15 @@ body {
 .profile-name {
   font-family: "Poppins", sans-serif;
   cursor: pointer;
+  width: 100%;
+}
+
+.sidenav-container.mobile .list-items {
+  flex-direction: row;
+  border: solid #fff;
+  padding: 0 20px;
+  width: 100%;
+  /* position: static; */
 }
 
 .sidenav-container.mobile {
@@ -239,14 +249,9 @@ body {
   flex-direction: row;
   /* border: solid #fff; */
   align-items: center;
+  justify-content: center;
+  border: solid #fff;
   /* gap: 0; */
-  .list-items {
-    flex-direction: row;
-    width: 100%;
-    /* border: solid red; */
-    padding: 0 20px;
-    justify-content: space-between;
-  }
 
   .sidenav-header {
     display: none;
@@ -275,9 +280,6 @@ body {
   }
   .list-items li:nth-child(8) {
     order: 6;
-  }
-  .sidemenu-item:last-child {
-    display: none;
   }
 
   .profile-img {

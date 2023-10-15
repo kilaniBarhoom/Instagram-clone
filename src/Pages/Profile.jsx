@@ -114,6 +114,9 @@ export default function Profile() {
                     avatar={avatar}
                     setAvatar={setAvatar}
                     userName={userName}
+                    setUserName={setUserName}
+                    status={status}
+                    setStatus={setStatus}
                   />
                   <button>View Archive</button>
                   {screenWidth > 735 ? (
@@ -219,7 +222,11 @@ export default function Profile() {
           <></>
         )}
         <div className="own-posts">
-          <ProfileTabs userId={userid} setPostsCount={setPostsCount} />
+          <ProfileTabs
+            status={status}
+            userid={userid}
+            setPostsCount={setPostsCount}
+          />
         </div>
       </div>
     </div>

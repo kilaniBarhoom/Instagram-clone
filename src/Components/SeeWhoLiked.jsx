@@ -4,10 +4,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { styled } from "@mui/material/styles";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
-import axios from "axios";
-import { toast } from "react-hot-toast";
+import { Stack } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 import { BaseURL, token } from "../Contexts/Vars";
 import { Avatar } from "@mui/material";
@@ -32,38 +32,18 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 500,
-  bgcolor: "background.paper",
-  boxShadow: 24,
+  height: 400,
+  bgcolor: "#000",
   borderRadius: 2,
-  p: 0,
+  p: 2,
 };
 
-export default function SeeWhoLiked({ id, open, setOpen }) {
-  const [likes, setLikes] = useState({});
+export default function SeeWhoLiked({ likes, open, setOpen }) {
   const handleClose = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    function handleViewLiked() {
-      axios
-        .get(`${BaseURL}/posts/likes/${id}`, null, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setLikes(res.data.likes);
-          if (likes && likes.users.length) {
-            console.log(likes);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    handleViewLiked();
-  }, []);
+  const nav = useNavigate();
 
   return (
     <div
@@ -78,12 +58,72 @@ export default function SeeWhoLiked({ id, open, setOpen }) {
         aria-describedby="modal-modal-description"
       >
         {likes ? (
-          <Box sx={style}>
-            <Typography variant="h2">Has Likes</Typography>
+          <Box sx={style} overflow="auto" border="solid 0px #fff">
+            <Button
+              sx={{ py: 2, minWidth: "0px", marginBottom: 2 }}
+              onClick={handleClose}
+            >
+              {" "}
+              <CloseIcon
+                style={{
+                  padding: "0",
+                  marging: "0",
+                  color: "#fff",
+                  fontSize: "2rem",
+                }}
+              />
+            </Button>
+            <Stack gap={2}>
+              {likes.users.map((user, i) => {
+                return (
+                  <Stack
+                    direction="row"
+                    key={i}
+                    bgcolor="transparent"
+                    borderRadius={2}
+                    p={2}
+                    alignItems="center"
+                    gap={2}
+                    border="solid 1px #fff"
+                  >
+                    <Avatar
+                      sx={{
+                        boxShadow: "1px 3px 5px #fff ",
+                      }}
+                      src={user.avatar}
+                      width={55}
+                      height={55}
+                    />
+                    <Typography sx={{ color: "#fff" }} variant="h6">
+                      {user.userName}
+                    </Typography>
+                  </Stack>
+                );
+              })}
+            </Stack>
           </Box>
         ) : (
           <Box sx={style}>
-            <Typography variant="h2">Doesn't have likes</Typography>
+            <Button
+              sx={{ p: "0", minWidth: "0px", marginBottom: 2 }}
+              onClick={handleClose}
+            >
+              {" "}
+              <CloseIcon
+                style={{
+                  padding: "0",
+                  marging: "0",
+                  color: "#fff",
+                  fontSize: "2rem",
+                }}
+              />
+            </Button>
+            <Typography
+              sx={{ margin: 10, textAlign: "center", color: "#fff" }}
+              variant="h3"
+            >
+              This Post Has No Likes
+            </Typography>
           </Box>
         )}
       </Modal>

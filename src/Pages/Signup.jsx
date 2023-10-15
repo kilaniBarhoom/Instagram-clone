@@ -16,24 +16,27 @@ import { toast } from "react-hot-toast";
 export default function Login() {
   const { register, handleSubmit } = useForm();
   const nav = useNavigate();
+  function validLogin(data) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return (
-  //     (emailPattern.test(register.numusermail) || register.numusermail) &&
-  //     register.password
-  //   );
-  // };
+    if (emailPattern.test(data.email)) {
+      return true;
+    } else {
+      toast.error("Wrong Email");
+    }
+  }
 
   function handleDataSubmit(data) {
+    if (!validLogin(data)) {
+      return;
+    }
     axios
       .post(`${BaseURL}/users/signup`, data)
-      .then((respone) => {
-        const token = respone.data.token;
-        localStorage.setItem("token", token);
-        toast.success("Successfully Logged In");
+      .then((response) => {
+        toast.success("Account Created Successfully");
         setTimeout(() => {
-          nav("/home");
-        }, 2000);
+          nav("/");
+        }, 1000);
       })
       .catch((error) => {
         toast.error(error.response.data);
@@ -91,7 +94,7 @@ export default function Login() {
                   sx={{ color: "#fff", margin: 0, padding: 0 }}
                   checked={showPass}
                   onChange={handleChange}
-                  inpsutProps={{ "aria-label": "controlled" }}
+                  inpsutprops={{ "aria-label": "controlled" }}
                 />
                 <Typography>Show Password</Typography>
               </Stack>

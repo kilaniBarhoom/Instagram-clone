@@ -1,7 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { userId } from "../Contexts/Vars";
 
-export default function NavIcons({ name, icon, navigate, user, profile }) {
+export default function NavIcons({
+  name,
+  icon,
+  navigate,
+  user,
+  profile,
+  setOpen,
+}) {
   const loc = useLocation();
   const CurrentPath = loc.pathname;
   const nav = useNavigate();
@@ -17,7 +24,7 @@ export default function NavIcons({ name, icon, navigate, user, profile }) {
   return (
     <li className="sidemenu-item" onClick={handleClick}>
       {name == "More" ? (
-        <BasicMenu icon={icon} />
+        <BasicMenu setOpen={setOpen} icon={icon} />
       ) : name == "Create" ? (
         <CreatePostModal user={user} name={name} icon={icon} />
       ) : (
@@ -45,9 +52,11 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { toast } from "react-hot-toast";
 import CreatePostModal from "./CreatePostModal";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { Stack } from "@mui/material";
 
-function BasicMenu({ icon }) {
+function BasicMenu({ icon, setOpen }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const nav = useNavigate();
@@ -67,6 +76,11 @@ function BasicMenu({ icon }) {
     setTimeout(() => {
       nav("/");
     }, 500);
+  };
+
+  const hendleDeleteUser = () => {
+    setOpen(true);
+    handleClose();
   };
 
   return (
@@ -98,9 +112,7 @@ function BasicMenu({ icon }) {
           }}
         >
           {icon}
-          {/* <span className="sidemenu-item"> */}
           <span id="more-icon-name">More</span>
-          {/* </span> */}
         </span>
       </Button>
       <Menu
@@ -114,6 +126,12 @@ function BasicMenu({ icon }) {
       >
         <MenuItem onClick={handleClose}>Switch account</MenuItem>
         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+        <MenuItem sx={{ color: "red" }} onClick={hendleDeleteUser}>
+          <Stack direction="row">
+            Delete User
+            <DeleteIcon />
+          </Stack>
+        </MenuItem>
       </Menu>
     </div>
   );

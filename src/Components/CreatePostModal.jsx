@@ -124,16 +124,11 @@ export default function CreatePostModal({ user, name, icon }) {
       <Button
         onClick={handleOpen}
         style={{
-          displa: "flex",
-          gap: "10px",
+          display: "flex",
           padding: "0",
-
-          // alignItems: "center",
+          gap: "15px",
           justifyContent: "flex-start",
-          width: "100%",
-
-          // border: "solid #fff",
-          // margin: "0 !important",
+          width: "25px",
         }}
       >
         <div
@@ -141,6 +136,7 @@ export default function CreatePostModal({ user, name, icon }) {
             display: "inline",
             color: "#ffffffc1",
             height: "25px",
+            width: "25px",
           }}
         >
           {icon}

@@ -1,12 +1,23 @@
-export default function Messege({ src }) {
+import { Avatar } from "@mui/material";
+
+export default function Messege({ src, userName }) {
   return (
     <div className="messege-container">
       <div className="profile-img" style={{ border: "none" }}>
-        <img style={{ width: "100%", borderRadius: "50%" }} src={src} alt="" />
+        <Avatar
+          sx={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            borderRadius: "50%",
+          }}
+          src={src}
+          alt="no pic"
+        />
       </div>
       <div className="right">
         <div className="username">
-          <span>Kilani</span>
+          <span>{userName}</span>
         </div>
         <div className="messege-line">
           <span id="messege">hi kilani . </span>

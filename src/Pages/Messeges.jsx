@@ -1,17 +1,29 @@
 import "../Styles/Messeges.css";
 import Messege from "../Components/Messege";
-import Images from "../Contexts/Images";
-
 import messegeImg from "../assets/messegeImg.jpg";
-
+import { BaseURL, token } from "../Contexts/Vars";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import axios from "axios";
+
 export default function Messeges() {
   const [messeges, setMesseges] = useState("");
+  const [users, setUsers] = useState("");
   const nav = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`${BaseURL}/users`)
+      .then((res) => {
+        setUsers(res.data.users.slice(0, 20));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="messeges-page-container">
@@ -34,17 +46,21 @@ export default function Messeges() {
           </div>
         </div>
         <div className="messeges-followers">
-          {Images.map((img, ind) => {
-            return (
-              <Messege
-                key={ind}
-                src={img}
-                userName="userName"
-                messege="messege"
-                time="time"
-              />
-            );
-          })}
+          {users ? (
+            users.map(({ avatar, userName }, ind) => {
+              return (
+                <Messege
+                  key={ind}
+                  src={avatar}
+                  userName={userName}
+                  messege="messege"
+                  time="time"
+                />
+              );
+            })
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="chat-messege-displayer">

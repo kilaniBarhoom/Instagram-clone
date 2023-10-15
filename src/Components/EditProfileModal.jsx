@@ -10,6 +10,8 @@ import { Slide, TextField } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { BaseURL, token, userId } from "../Contexts/Vars";
 import Stack from "@mui/material/Stack";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Checkbox from "@mui/material/Checkbox";
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -51,22 +53,37 @@ export default function EditProfileModal({
   avatar,
   setAvatar,
   userName,
+  setUserName,
+  status,
+  setStatus,
 }) {
   const formData = new FormData();
 
   const [newAvatar, setNewAvatar] = useState(null);
   const [avatarToSet, setAvatarToSet] = useState(null);
   const [newBio, setNewBio] = useState("");
+  const [newUserName, setNewUserName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [makePri, setPrivate] = useState(false);
+
+  const handleChange = (event) => {
+    setPrivate(event.target.checked);
+  };
 
   useEffect(() => {
     setNewAvatar(avatar);
     setNewBio(bio);
+    setNewUserName(userName);
+    setPrivate(status == "private");
   }, [open]);
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
     formData.append("bio", newBio);
     formData.append("avatar", avatarToSet);
+    formData.append("userName", newUserName);
+    formData.append("status", makePri == true ? "private" : "public");
+    setLoading(true);
 
     axios
       .put(`${BaseURL}/users`, formData, {
@@ -76,8 +93,10 @@ export default function EditProfileModal({
         },
       })
       .then((res) => {
+        setLoading(false);
         toast.success(res.data.message);
         handleClose();
+        window.location.reload();
       })
       .catch((err) => {
         toast.error(err.response.data);
@@ -182,7 +201,7 @@ export default function EditProfileModal({
               >
                 <Box display="flex" justifyContent="flex-start">
                   <label htmlFor="image-upload">
-                    <Button component="span" variant="text">
+                    <Button component="span" variant="contained">
                       Change Avatar
                     </Button>
                   </label>
@@ -194,30 +213,58 @@ export default function EditProfileModal({
                   />
                 </Box>
                 <Stack direction="column" gap={1} alignItems="flex-start">
-                  <Typography variant="h6">Bio</Typography>
-                  <StyledTextarea
-                    sx={{ margin: 0 }}
-                    minRows={5}
-                    id="outlined-basic"
-                    value={newBio}
-                    variant="outlined"
-                    onChange={(e) => {
-                      setNewBio(e.target.value);
-                    }}
-                  />
+                  <Box sx={{ width: "60%", textAlign: "left" }}>
+                    <Typography variant="h6">Username</Typography>
+                    <StyledTextarea
+                      sx={{ margin: 0 }}
+                      minRows={1}
+                      id="outlined-basic"
+                      value={newUserName}
+                      variant="outlined"
+                      onChange={(e) => {
+                        setNewUserName(e.target.value);
+                      }}
+                    />
+                  </Box>
+
+                  <Box sx={{ width: "100%", textAlign: "left" }}>
+                    <Typography variant="h6">Bio</Typography>
+                    <StyledTextarea
+                      sx={{ margin: 0 }}
+                      minRows={5}
+                      id="outlined-basic"
+                      value={newBio}
+                      variant="outlined"
+                      onChange={(e) => {
+                        setNewBio(e.target.value);
+                      }}
+                    />
+                  </Box>
+                  <Stack direction="row" gap={1}>
+                    <Checkbox
+                      sx={{ color: "#000", margin: 0, padding: 0 }}
+                      checked={makePri}
+                      onChange={handleChange}
+                      inpsutprops={{ "aria-label": "controlled" }}
+                    />
+                    <Typography>Private Account</Typography>
+                  </Stack>
                 </Stack>
                 <Box textAlign="center" marginTop={2}>
-                  <Button
+                  <LoadingButton
+                    size="small"
+                    loading={loading}
                     variant="contained"
                     type="submit"
-                    style={{
-                      paddingLeft: "6ch",
-                      paddingRight: "6ch",
-                      marginTop: "auto",
+                    sx={{
+                      px: 6,
+                      py: 1.5,
+                      textTransform: "capitalize",
+                      fontSize: "1rem",
                     }}
                   >
-                    Submit
-                  </Button>
+                    <span>Submit</span>
+                  </LoadingButton>
                 </Box>
               </Stack>
             </form>

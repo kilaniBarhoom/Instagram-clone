@@ -20,6 +20,7 @@ import ProtectedAuth from "./Routes/ProtectedAuth";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { BaseURL, token, userId } from "./Contexts/Vars";
+import Search from "./Pages/Search";
 
 export default function App() {
   const [openCreate, setOpenCreate] = useState(false);
@@ -46,7 +47,7 @@ export default function App() {
     <div className="app-container">
       <Toaster />
 
-      {path !== "/login" || path !== "/signup" ? (
+      {path !== "/" && path !== "/signup" ? (
         <SideMenu user={user} setOpenCreate={setOpenCreate} />
       ) : (
         <></>
@@ -76,6 +77,7 @@ export default function App() {
             </ProtectedHome>
           }
         />
+        <Route path="/search" element={<Search />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/messeges" element={<Messeges />} />
         <Route path="/suggested" element={<Suggested />} />

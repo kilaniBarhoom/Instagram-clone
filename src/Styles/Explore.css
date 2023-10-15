@@ -5,11 +5,11 @@
 }
 
 .explore-content {
-  width: 60%;
+  width: 80%;
   /* max-width: 25em; */
   margin: 30px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 10px;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .explore-item {
-  height: 20ch;
+  height: 25ch;
   position: relative;
 }
 

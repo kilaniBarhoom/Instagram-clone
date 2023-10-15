@@ -19,6 +19,7 @@ export default function Post({
   createdAt,
 }) {
   const [liked, setLiked] = useState(null);
+  const [likess, setLikess] = useState(null);
   const [openLikes, setOpenLikes] = useState(false);
 
   useEffect(() => {
@@ -40,13 +41,13 @@ export default function Post({
     if (diffWeeks > 0) {
       return `${diffWeeks} weeks`;
     } else if (diffDays > 0) {
-      return `${diffDays} days`;
+      return `${diffDays} ${diffDays == 1 ? "day" : "days"}`;
     } else if (diffHours > 0) {
-      return `${diffHours} hours`;
+      return `${diffHours} ${diffHours == 1 ? "hour" : "hours"}`;
     } else if (diffMinutes > 0) {
-      return `${diffMinutes} minutes`;
+      return `${diffMinutes} ${diffMinutes == 1 ? "minute" : "minutes"}`;
     } else {
-      return `${diffSeconds} seconds`;
+      return `${diffSeconds} ${diffSeconds == 1 ? "second" : "seconds"}`;
     }
   }
 
@@ -85,6 +86,21 @@ export default function Post({
       });
   }
 
+  function handleViewLiked() {
+    axios
+      .get(`${BaseURL}/posts/likes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setLikess(res.data.likes);
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
+  }
+
   return (
     <div className="post-container">
       <div className="post-header">
@@ -93,7 +109,7 @@ export default function Post({
           {user.userName}
         </span>
 
-        {/* <SeeWhoLiked id={id} open={openLikes} setOpen={setOpenLikes} /> */}
+        <SeeWhoLiked likes={likess} open={openLikes} setOpen={setOpenLikes} />
 
         <BasicMenu id={id} description={description} user={user} />
       </div>
@@ -120,7 +136,10 @@ export default function Post({
           <span>{likes.length}</span>
           <span
             style={{ cursor: "pointer" }}
-            onClick={() => setOpenLikes(trueyy)}
+            onClick={() => {
+              handleViewLiked();
+              setOpenLikes(true);
+            }}
           >
             {likes.length == 1 ? "Like" : "Likes"}
           </span>

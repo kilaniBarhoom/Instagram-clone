@@ -16,20 +16,7 @@ export default function Login() {
   const { register, handleSubmit } = useForm();
   const nav = useNavigate();
 
-  const validLogin = (numusermail) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(numusermail);
-  };
-
   function handleDataSubmit(data) {
-    if (validLogin(data.numusermail)) {
-      data.email = data.numusermail;
-      delete data.numusermail;
-    } else {
-      data.userName = data.numusermail;
-      delete data.numusermail;
-    }
-
     axios
       .post(`${BaseURL}/users/login`, data)
       .then((response) => {
@@ -40,6 +27,7 @@ export default function Login() {
         toast.success("Successfully Logged In");
         setTimeout(() => {
           nav("/home");
+          window.location.reload();
         }, 2000);
       })
       .catch((error) => {
@@ -71,11 +59,7 @@ export default function Login() {
             })}
           >
             <div className="inputs">
-              <input
-                type="text"
-                placeholder="Mobile Number, Email or Username"
-                {...register("numusermail")}
-              />
+              <input type="text" placeholder="Email" {...register("email")} />
               <input
                 type={showPass ? "text" : "password"}
                 placeholder="Password"
