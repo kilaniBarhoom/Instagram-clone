@@ -1,7 +1,8 @@
 import "../Styles/Homepagesugg.css";
-import { useState } from "react";
+import profilepic from "../assets/profilepic.jpg";
+import { useEffect, useState } from "react";
 
-export default function HomePageSugg({ src, username, content }) {
+export default function HomePageSugg({ main, src, username, content }) {
   const [req, setReq] = useState("Follow");
   return (
     <div className="home-sugg-container">
@@ -9,7 +10,7 @@ export default function HomePageSugg({ src, username, content }) {
         <div className="profile-img" style={{ border: "none" }}>
           <img
             style={{ width: "100%", borderRadius: "50%" }}
-            src={src}
+            src={main == true ? profilepic : src}
             alt=""
           />
         </div>
@@ -23,13 +24,17 @@ export default function HomePageSugg({ src, username, content }) {
         </div>
       </div>
       <div className="right">
-        <span
-          onClick={() =>
-            setReq((req) => (req == "Follow" ? "Requested" : "Follow"))
-          }
-        >
-          {req}
-        </span>
+        {main == true ? (
+          <span>Switch account</span>
+        ) : (
+          <span
+            onClick={() =>
+              setReq((req) => (req == "Follow" ? "Requested" : "Follow"))
+            }
+          >
+            {req}
+          </span>
+        )}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import axios from "axios";
 import { BaseURL, token, userId } from "../Contexts/Vars";
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import privateAccPhoto from "../assets/PrivateAccountPhoto.jpg";
+import noposts from "../assets/noposts.jpg";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,7 +66,6 @@ export default function ProfileTabs({ status, userid, setPostsCount }) {
       .then((res) => {
         setPosts(res.data.posts);
         setPostsCount(posts.length);
-        // console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -82,15 +82,14 @@ export default function ProfileTabs({ status, userid, setPostsCount }) {
         },
       })
       .then((res) => {
-        setLikedPosts(res.data.posts);
-        setLikedPosts([
-          ...likedPosts.filter((post) => post.likes.includes(userid)),
-        ]);
+        setLikedPosts(
+          res.data.posts.filter((post) => post.likes.includes(userid))
+        );
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     axios
@@ -122,21 +121,30 @@ export default function ProfileTabs({ status, userid, setPostsCount }) {
         <Box>
           <div className="posts-container">
             {status == "public" || userid == userId ? (
-              posts.map(
-                ({ id, image, likes, description, createdAt, comments }) => {
-                  return (
-                    <Post
-                      key={id}
-                      id={id}
-                      image={image}
-                      user={user}
-                      likes={likes}
-                      description={description}
-                      createdAt={createdAt}
-                      comments={comments}
-                    />
-                  );
-                }
+              posts.length ? (
+                posts.map(
+                  ({ id, image, likes, description, createdAt, comments }) => {
+                    return (
+                      <Post
+                        key={id}
+                        id={id}
+                        image={image}
+                        user={user}
+                        likes={likes}
+                        description={description}
+                        createdAt={createdAt}
+                        comments={comments}
+                      />
+                    );
+                  }
+                )
+              ) : (
+                <Box width="100%">
+                  <Stack alignItems="center" gap={3}>
+                    <Avatar src={noposts} sx={{ width: 150, height: 150 }} />
+                    <Typography variant="h3">No Posts Yet</Typography>
+                  </Stack>
+                </Box>
               )
             ) : (
               <Stack alignItems="center" gap={1}>
@@ -160,21 +168,30 @@ export default function ProfileTabs({ status, userid, setPostsCount }) {
         <Box>
           <div className="posts-container">
             {status == "public" || userid == userId ? (
-              likedPosts.map(
-                ({ id, image, likes, description, createdAt, comments }) => {
-                  return (
-                    <Post
-                      key={id}
-                      id={id}
-                      image={image}
-                      user={user}
-                      likes={likes}
-                      description={description}
-                      createdAt={createdAt}
-                      comments={comments}
-                    />
-                  );
-                }
+              likedPosts.length ? (
+                likedPosts.map(
+                  ({ id, image, likes, description, createdAt, comments }) => {
+                    return (
+                      <Post
+                        key={id}
+                        id={id}
+                        image={image}
+                        user={user}
+                        likes={likes}
+                        description={description}
+                        createdAt={createdAt}
+                        comments={comments}
+                      />
+                    );
+                  }
+                )
+              ) : (
+                <Box width="100%">
+                  <Stack alignItems="center" gap={3}>
+                    <Avatar src={noposts} sx={{ width: 150, height: 150 }} />
+                    <Typography variant="h3">No Liked Posts Yet</Typography>
+                  </Stack>
+                </Box>
               )
             ) : (
               <Stack alignItems="center" gap={1}>

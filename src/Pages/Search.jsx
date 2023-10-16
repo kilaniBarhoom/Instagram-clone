@@ -1,14 +1,15 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Slide, TextField } from "@mui/material";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
-import LoadingButton from "@mui/lab/LoadingButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { BaseURL } from "../Contexts/Vars";
+import Avatar from "@mui/material/Avatar";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import stringSimilarity from "string-similarity";
 
 const StyledTextarea = styled(TextareaAutosize)(
   ({ theme }) => `
@@ -27,28 +28,45 @@ const StyledTextarea = styled(TextareaAutosize)(
 export default function Search() {
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
+  const [displayUsers, setDisplayUsers] = useState(null);
 
-  const [loading, setLoading] = useState(false);
+  const searchRef = useRef();
+
+  useEffect(() => {
+    searchRef.current.focus();
+  }, []);
 
   const handleSearchUser = () => {
-    setLoading(true);
     axios
       .get(`${BaseURL}/users`)
       .then((res) => {
         setUsers(res.data.users);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+        users
+          ? setDisplayUsers(
+              users
+                .map((user) => ({
+                  user,
+                  similarity: stringSimilarity.compareTwoStrings(
+                    search.toLowerCase(),
+                    user.userName.toLowerCase()
+                  ),
+                }))
+                .sort((a, b) => b.similarity - a.similarity)
+                .slice(0, 9)
+                .map(({ user }) => user)
+            )
+          : "";
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(users);
   };
 
+  const nav = useNavigate();
+
   return (
-    <Box marginLeft="240px" width="100%" p={5}>
+    <Box marginLeft="240px" width="40%" p={5}>
       <Typography color="#fff" variant="h5">
         Search for a user
       </Typography>
@@ -56,12 +74,12 @@ export default function Search() {
         <StyledTextarea
           sx={{
             margin: 0,
-            width: "40%",
             border: "none",
             outline: "none",
             fontSize: "1.2rem",
           }}
-          minRows={1}
+          ref={searchRef}
+          maxRows={1}
           id="outlined-basic"
           value={search}
           variant="outlined"
@@ -78,9 +96,47 @@ export default function Search() {
           Search
         </Button>
       </Stack>
-      <Box>
-        {}
-        <Stack gap={1}></Stack>
+      <Box marginTop="5ch">
+        {!displayUsers ? (
+          <></>
+        ) : displayUsers.length ? (
+          <Stack width="75%" direction="column" gap={1}>
+            {displayUsers.map((displayUser, ind) => {
+              return (
+                <Stack
+                  key={ind}
+                  p={1}
+                  border="solid rgba(0, 0, 0, 0.4) 1px"
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  borderRadius={2}
+                >
+                  <Stack direction="row" gap={2} alignItems="center">
+                    <Avatar
+                      src={displayUser.avatar}
+                      alt="no img"
+                      sx={{ width: 55, height: 55 }}
+                    />
+                    <Typography color="#fff" variant="h5">
+                      <span>{displayUser.userName}</span>
+                    </Typography>
+                  </Stack>
+                  <Box alignItems="center">
+                    <Button
+                      onClick={() => nav(`/${displayUser.id}`)}
+                      variant="text"
+                    >
+                      View Profile
+                    </Button>
+                  </Box>
+                </Stack>
+              );
+            })}
+          </Stack>
+        ) : (
+          <></>
+        )}
       </Box>
     </Box>
   );

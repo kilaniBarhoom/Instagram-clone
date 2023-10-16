@@ -1,12 +1,8 @@
+import "../Styles/Profile.css";
 import { useEffect, useState } from "react";
 import { BaseURL, token, userId } from "../Contexts/Vars";
-import "../Styles/Profile.css";
-import profilepic from "../assets/profilepic.jpg";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Highlight from "../Components/Highlight";
-import GridOnIcon from "@mui/icons-material/GridOn";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import EditProfileModal from "../Components/EditProfileModal";
