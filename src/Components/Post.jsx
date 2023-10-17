@@ -39,7 +39,7 @@ export default function Post({
     const diffWeeks = Math.floor(diffDays / 7);
 
     if (diffWeeks > 0) {
-      return `${diffWeeks} weeks`;
+      return `${diffWeeks} ${diffWeeks == 1 ? "week" : "weeks"}`;
     } else if (diffDays > 0) {
       return `${diffDays} ${diffDays == 1 ? "day" : "days"}`;
     } else if (diffHours > 0) {
