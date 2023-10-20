@@ -1,12 +1,13 @@
 import "../Styles/Explore.css";
-import InboxIcon from "@mui/icons-material/Inbox";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BaseURL, token } from "../Contexts/Vars";
+import { useNavigate } from "react-router-dom";
 
 export default function Explore() {
   const [tempPosts, setTempPosts] = useState([]);
   const [explorePosts, setExplorePosts] = useState([]);
+  const nav = useNavigate();
 
   const sortByLikes = (post1, post2) => {
     const likesCount1 = post1.likes.length;
@@ -34,9 +35,13 @@ export default function Explore() {
   return (
     <div className="explore-page-container">
       <div className="explore-content">
-        {explorePosts.map(({ image }, ind) => {
+        {explorePosts.map(({ id, image }, ind) => {
           return (
-            <div key={ind} className="explore-item">
+            <div
+              key={ind}
+              onClick={() => nav(`/explore/${id}`)}
+              className="explore-item"
+            >
               <img src={image} alt="" />
             </div>
           );

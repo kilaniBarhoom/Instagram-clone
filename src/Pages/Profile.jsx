@@ -5,7 +5,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Highlight from "../Components/Highlight";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import EditProfileModal from "../Components/EditProfileModal";
+import EditProfileModal from "../Modals/EditProfileModal";
 
 import Button from "@mui/material/Button";
 import { Avatar, Box } from "@mui/material";

@@ -7,26 +7,20 @@ import Messeges from "./Pages/Messeges";
 import Suggested from "./Pages/Suggested";
 import Profile from "./Pages/Profile";
 import { useState, useEffect } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import Images from "./Contexts/Images";
-import PostImages from "./Contexts/PostImages";
-import profilePic from "./assets/profilepic.jpg";
 
-import { useForm } from "react-hook-form";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import ProtectedHome from "./Routes/ProtectedHome";
 import ProtectedAuth from "./Routes/ProtectedAuth";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { BaseURL, token, userId } from "./Contexts/Vars";
+import { BaseURL, userId } from "./Contexts/Vars";
 import Search from "./Pages/Search";
+import ExplorePost from "./Pages/ExplorePost";
 
 export default function App() {
   const [openCreate, setOpenCreate] = useState(false);
   const [user, setUser] = useState([]);
-
-  const { register, handleSubmit } = useForm();
 
   const location = useLocation();
   const path = location.pathname;
@@ -79,6 +73,7 @@ export default function App() {
         />
         <Route path="/search" element={<Search />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/explore/:postid" element={<ExplorePost />} />
         <Route path="/messeges" element={<Messeges />} />
         <Route path="/suggested" element={<Suggested />} />
         <Route path=":userid" element={<Profile />} />

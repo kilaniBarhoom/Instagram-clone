@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { BaseURL, token } from "../Contexts/Vars";
-import StoriesSkeleton from "../Components/StoriesSkeleton";
-import PostsSkeleton from "../Components/PostsSkeleton";
+import StoriesSkeleton from "../Skeletons/StoriesSkeleton";
+import PostsSkeleton from "../Skeletons/PostsSkeleton";
 import ScrollTo from "../Components/ScrollTo";
 
 export default function Home() {

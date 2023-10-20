@@ -5,7 +5,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import { useState, useEffect } from "react";
-import EditPostModal from "./EditPostModal";
+import EditPostModal from "../Modals/EditPostModal";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BaseURL, token, userId } from "../Contexts/Vars";

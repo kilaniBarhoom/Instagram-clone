@@ -51,7 +51,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { toast } from "react-hot-toast";
-import CreatePostModal from "./CreatePostModal";
+import CreatePostModal from "../Modals/CreatePostModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { Stack } from "@mui/material";
