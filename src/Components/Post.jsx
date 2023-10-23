@@ -161,7 +161,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { toast } from "react-hot-toast";
-import SeeWhoLiked from "./SeeWhoLiked";
+import SeeWhoLiked from "../Modals/SeeWhoLiked";
 
 function BasicMenu({ id, user, description }) {
   const [anchorEl, setAnchorEl] = React.useState(null);

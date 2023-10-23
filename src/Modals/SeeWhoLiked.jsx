@@ -83,20 +83,25 @@ export default function SeeWhoLiked({ likes, open, setOpen }) {
                     borderRadius={2}
                     p={2}
                     alignItems="center"
-                    gap={2}
                     border="solid 1px #fff"
+                    justifyContent="space-between"
                   >
-                    <Avatar
-                      sx={{
-                        boxShadow: "1px 3px 5px #fff ",
-                      }}
-                      src={user.avatar}
-                      width={55}
-                      height={55}
-                    />
-                    <Typography sx={{ color: "#fff" }} variant="h6">
-                      {user.userName}
-                    </Typography>
+                    <Stack direction="row" alignItems="center" gap={2}>
+                      <Avatar
+                        sx={{
+                          boxShadow: "1px 3px 5px #fff ",
+                        }}
+                        src={user.avatar}
+                        width={55}
+                        height={55}
+                      />
+                      <Typography sx={{ color: "#fff" }} variant="h6">
+                        {user.userName}
+                      </Typography>
+                    </Stack>
+                    <Button onClick={() => nav(`/${user.id}`)} variant="text">
+                      View profile
+                    </Button>
                   </Stack>
                 );
               })}

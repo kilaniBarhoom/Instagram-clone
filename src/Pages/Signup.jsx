@@ -78,16 +78,23 @@ export default function Login() {
             })}
           >
             <div className="inputs">
-              <input type="email" placeholder="Email" {...register("email")} />
+              <input
+                type="email"
+                placeholder="Email"
+                {...register("email")}
+                autoComplete="off"
+              />
               <input
                 type="text"
                 placeholder="Username"
                 {...register("userName")}
+                autoComplete="off"
               />
               <input
                 type={showPass ? "text" : "password"}
                 placeholder="Password"
                 {...register("password")}
+                autoComplete="off"
               />
               <Stack direction="row" gap={1}>
                 <Checkbox

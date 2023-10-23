@@ -7,12 +7,23 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import SendAMessegeModal from "../Modals/SendAMessegeModal";
 import axios from "axios";
 
 export default function Messeges() {
   const [messeges, setMesseges] = useState("");
   const [users, setUsers] = useState("");
   const nav = useNavigate();
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     axios
@@ -72,9 +83,16 @@ export default function Messeges() {
               <img src={messegeImg} alt="" />
             </div>
             <div className="no-chosen-body">
-              <h3>Your Messeges</h3>
+              <h3>Your Messages</h3>
               <p>Send private photos and messages to a friend or group</p>
-              <button className="send-messege-btn">Send Messege</button>
+              <button onClick={handleOpen} className="send-messege-btn">
+                Send Messege
+              </button>
+              <SendAMessegeModal
+                open={open}
+                handleClose={handleClose}
+                users={users}
+              />
             </div>
           </div>
         )}

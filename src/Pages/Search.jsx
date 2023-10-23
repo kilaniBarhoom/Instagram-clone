@@ -10,6 +10,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import stringSimilarity from "string-similarity";
+import SearchSkeleton from "../Skeletons/SearchSkeleton";
 
 const StyledTextarea = styled(TextareaAutosize)(
   ({ theme }) => `
@@ -30,6 +31,7 @@ export default function Search() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
   const [displayUsers, setDisplayUsers] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const searchRef = useRef();
 
@@ -42,6 +44,7 @@ export default function Search() {
       .get(`${BaseURL}/users`)
       .then((res) => {
         setUsers(res.data.users);
+
         users
           ? setDisplayUsers(
               users
@@ -57,6 +60,9 @@ export default function Search() {
                 .map(({ user }) => user)
             )
           : "";
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
@@ -103,34 +109,40 @@ export default function Search() {
           <Stack width="75%" direction="column" gap={1}>
             {displayUsers.map((displayUser, ind) => {
               return (
-                <Stack
-                  key={ind}
-                  p={1}
-                  border="solid rgba(0, 0, 0, 0.4) 1px"
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  borderRadius={2}
-                >
-                  <Stack direction="row" gap={2} alignItems="center">
-                    <Avatar
-                      src={displayUser.avatar}
-                      alt="no img"
-                      sx={{ width: 55, height: 55 }}
-                    />
-                    <Typography color="#fff" variant="h5">
-                      <span>{displayUser.userName}</span>
-                    </Typography>
-                  </Stack>
-                  <Box alignItems="center">
-                    <Button
-                      onClick={() => nav(`/${displayUser.id}`)}
-                      variant="text"
+                <>
+                  {loading ? (
+                    <SearchSkeleton />
+                  ) : (
+                    <Stack
+                      key={ind}
+                      p={1}
+                      border="solid rgba(0, 0, 0, 0.4) 1px"
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                      borderRadius={2}
                     >
-                      View Profile
-                    </Button>
-                  </Box>
-                </Stack>
+                      <Stack direction="row" gap={2} alignItems="center">
+                        <Avatar
+                          src={displayUser.avatar}
+                          alt="no img"
+                          sx={{ width: 55, height: 55 }}
+                        />
+                        <Typography color="#fff" variant="h5">
+                          <span>{displayUser.userName}</span>
+                        </Typography>
+                      </Stack>
+                      <Box alignItems="center">
+                        <Button
+                          onClick={() => nav(`/${displayUser.id}`)}
+                          variant="text"
+                        >
+                          View Profile
+                        </Button>
+                      </Box>
+                    </Stack>
+                  )}
+                </>
               );
             })}
           </Stack>

@@ -3,10 +3,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BaseURL, token } from "../Contexts/Vars";
 import { useNavigate } from "react-router-dom";
+import ExploreItemSkeleton from "../Skeletons/ExploreItemSkeleton";
 
 export default function Explore() {
   const [tempPosts, setTempPosts] = useState([]);
   const [explorePosts, setExplorePosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const nav = useNavigate();
 
   const sortByLikes = (post1, post2) => {
@@ -26,6 +28,9 @@ export default function Explore() {
       .then((res) => {
         setTempPosts(res.data.posts);
         setExplorePosts(tempPosts.sort(sortByLikes).slice(0, 15));
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -37,13 +42,19 @@ export default function Explore() {
       <div className="explore-content">
         {explorePosts.map(({ id, image }, ind) => {
           return (
-            <div
-              key={ind}
-              onClick={() => nav(`/explore/${id}`)}
-              className="explore-item"
-            >
-              <img src={image} alt="" />
-            </div>
+            <>
+              {loading ? (
+                <ExploreItemSkeleton />
+              ) : (
+                <div
+                  key={ind}
+                  onClick={() => nav(`/explore/${id}`)}
+                  className="explore-item"
+                >
+                  <img src={image} alt="" />
+                </div>
+              )}
+            </>
           );
         })}
       </div>

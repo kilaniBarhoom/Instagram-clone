@@ -5,7 +5,7 @@ import HomePageSugg from "../Components/HomePageSugg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { BaseURL, token } from "../Contexts/Vars";
+import { BaseURL, token, userId } from "../Contexts/Vars";
 import StoriesSkeleton from "../Skeletons/StoriesSkeleton";
 import PostsSkeleton from "../Skeletons/PostsSkeleton";
 import ScrollTo from "../Components/ScrollTo";
@@ -74,8 +74,8 @@ export default function Home() {
                       <>
                         <img className="profile-img" src={avatar} alt="" />
                         <span className="profile-name">
-                          {userName.length > 8
-                            ? userName.substring(0, 8)
+                          {userName.length > 6
+                            ? userName.substring(0, 6)
                             : userName}
                         </span>
                       </>
