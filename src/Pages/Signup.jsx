@@ -1,6 +1,6 @@
-import iphoneScreen from "../assets/iphoneScreen.png";
+// import iphoneScreen from "../assets/iphoneScreen.png";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import androidScreen from "../assets/androidScreen.png";
+// import androidScreen from "../assets/androidScreen.png";
 import instaIcontext from "../assets/headername.jpg";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -52,8 +52,8 @@ export default function Login() {
   return (
     <div className="logup-container">
       <div className="screens-container">
-        <img src={iphoneScreen} alt="" />
-        <img src={androidScreen} alt="" />
+{/*         <img src={iphoneScreen} alt="" />
+        <img src={androidScreen} alt="" /> */}
       </div>
       <div className="data-container">
         <div className="main-box">
